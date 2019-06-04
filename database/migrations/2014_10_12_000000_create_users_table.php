@@ -16,9 +16,12 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
+            $table->string('password')->nullable();
+            $table->string('social_id')->nullable(); // Lấy tên đăng nhập nếu dùng mạng xã hội
+            $table->integer('rules')->default(0); // Phân quyền người dùng 0 mặc định là khách hàng
+            $table->integer('status')->default(0);
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
