@@ -12,5 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('frontend.index');
+    return view('admin.pages.category.list');
 });
+Route::group(['prefix' => 'admin'], function () {
+    Route::resource('category','CategoryController');
+    Route::resource('producttype','ProductTypeController');
+    Route::resource('product','ProductController');
+});
+
+Route::get('getproducttype','AjaxController@getproducttype');

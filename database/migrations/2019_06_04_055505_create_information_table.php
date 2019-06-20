@@ -15,12 +15,13 @@ class CreateInformationTable extends Migration
     {
         Schema::create('information', function (Blueprint $table) {
             // Bảng lưu lại thông tin cập nhập của người dùng
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('idUser');
             $table->string('avatar')->nullable();
             $table->string('address');
             $table->string('email');
             $table->string('phone');
+            $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

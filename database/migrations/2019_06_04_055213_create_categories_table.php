@@ -15,7 +15,7 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('category', function (Blueprint $table) {
             //Bảng danh mục sản phẩm
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('slug');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('category');
     }
 }
