@@ -18,4 +18,12 @@ class Product extends Model
     {
         return $this->belongsTo('App\Model\ProductType', 'idProductType', 'id');
     }
+    public function ProductDetails()
+    {
+        return $this->hasMany('App\Model\ProductDetails', 'idProduct', 'id');
+    }
+    public function Comment()
+    {
+        return $this->hasMany('App\Model\Comment', 'idProduct', 'id');
+    }
 }

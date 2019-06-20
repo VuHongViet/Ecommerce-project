@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductDetailsTable extends Migration
+class CreateReplyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateProductDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_details', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('image');
-            $table->integer('idProduct');
-            $table->foreign('idProduct')->references('id')->on('products')->onDelete('cascade');
+        Schema::create('reply', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateProductDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_details');
+        Schema::dropIfExists('reply');
     }
 }

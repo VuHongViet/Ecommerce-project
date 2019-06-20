@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriesTable extends Migration
+class CreateCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('category', function (Blueprint $table) {
-            //Bảng danh mục sản phẩm
-            $table->increments('id');
+        Schema::create('Category', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug');
             $table->timestamps();
@@ -29,6 +28,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('Category');
     }
 }

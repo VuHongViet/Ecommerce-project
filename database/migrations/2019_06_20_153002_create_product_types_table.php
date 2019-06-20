@@ -14,13 +14,12 @@ class CreateProductTypesTable extends Migration
     public function up()
     {
         Schema::create('product_types', function (Blueprint $table) {
-            //Bảng loại sản phẩm
-            $table->increments('id');
-            $table->integer('idCategory');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug');
+            $table->unsignedBigInteger('idCategory');
+            $table->foreign('idCategory')->references('id')->on('Category')->onDelete('cascade');
             $table->timestamps();
-            $table->foreign('idCategory')->references('id')->on('category')->onDelete('cascade');
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInformationTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateInformationTable extends Migration
      */
     public function up()
     {
-        Schema::create('information', function (Blueprint $table) {
-            // Bảng lưu lại thông tin cập nhập của người dùng
-            $table->increments('id');
-            $table->integer('idUser');
-            $table->string('avatar')->nullable();
-            $table->string('address');
-            $table->string('email');
-            $table->string('phone');
+        Schema::create('comments', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('content');
+            $table->unsignedBigInteger('idUser');
+            $table->unsignedBigInteger('idProduct');
             $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('idProduct')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ class CreateInformationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('information');
+        Schema::dropIfExists('comments');
     }
 }
