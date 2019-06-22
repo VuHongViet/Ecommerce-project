@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('admin.pages.category.list');
-});
+// Route::get('/', function () {
+//     return view('admin.pages.category.list');
+// });
 Route::group(['prefix' => 'admin'], function () {
     Route::resource('category','CategoryController');
     Route::resource('producttype','ProductTypeController');

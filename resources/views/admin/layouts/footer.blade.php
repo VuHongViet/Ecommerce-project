@@ -8,12 +8,6 @@
         </footer>
         <!-- End of Footer -->
 
-    </div>
-    <!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
-
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -39,17 +33,15 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="{{ asset('assets/admin/vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('admin/assets/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="{{ asset('assets/admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+<script src="{{ asset('admin/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="{{ asset('assets/admin/js/sb-admin-2.min.js') }}"></script>
-<script src="{{ asset('assets/admin/js/ajax.js') }}"></script>
-<script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-<script type="text/javascript">
-    CKEDITOR.replace( 'demo' );
-</script>
+<script src="{{ asset('admin/assets/js/sb-admin-2.min.js') }}"></script>
+<script src="{{ asset('admin/assets/js/ajax.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admin/ckeditor/ckeditor.js') }}"></script>
+
 

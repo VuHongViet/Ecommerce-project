@@ -11,6 +11,7 @@
 	    </div>
 	    <div class="card-body">
 	        <div class="table-responsive">
+               <a href="{{route('category.create')}}" class="btn btn-success">Thêm mới</a>
 	            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                <thead>
 	                    <tr>
@@ -29,7 +30,7 @@
 	                    </tr>
 	                </tfoot>
 	                <tbody>
-						@foreach($categorys as $key => $value)
+						@foreach($category as $key => $value)
 		                    <tr>
 		                        <td>{{ $key+1 }}</td>
 		                        <td>{{ $value->name }}</td>
@@ -39,10 +40,10 @@
 		                        	<button class="btn btn-danger delete" title="{{ "Xóa ".$value->name }}" data-toggle="modal" data-target="#delete" type="button" data-id="{{ $value->id }}"><i class="fas fa-trash-alt"></i></button>
 		                        </td>
 		                    </tr>
-						@endforeach
-	                </tbody>
+                        @endforeach
+                    </tbody>
 	            </table>
-	            {{-- <div class="pull-right">{{ $category->links() }}</div> --}}
+	            <div>{{ $category->links() }}</div>
 	        </div>
 	    </div>
 	</div>

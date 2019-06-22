@@ -21,6 +21,8 @@ class CreateProductsTable extends Migration
             $table->integer('quantity');
             $table->float('price',11);
             $table->float('promotional',11);
+            $table->string('color');
+            $table->text('infor');
             $table->string('image');
             $table->unsignedBigInteger('idCategory');
             $table->unsignedBigInteger('idProductType');

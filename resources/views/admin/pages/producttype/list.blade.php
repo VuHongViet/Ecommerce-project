@@ -11,6 +11,7 @@
 	    </div>
 	    <div class="card-body">
 	        <div class="table-responsive">
+                <a href="{{route('producttype.create')}}" class="btn btn-success">Thêm mới</a>
 	            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                <thead>
 	                    <tr>

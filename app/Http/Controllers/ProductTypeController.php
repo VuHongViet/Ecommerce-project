@@ -84,7 +84,7 @@ class ProductTypeController extends Controller
     {
         $validator = Validator::make($request->all(),
             [
-                'name'=>'required|min:2|max:255|unique:product_types,name'
+                'name'=>'required|min:2|max:255'
             ],
             [
                 'required'=>'Tên loại sản phẩm không được để trống',

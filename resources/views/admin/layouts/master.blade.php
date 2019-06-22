@@ -13,12 +13,12 @@
     <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('assets/admin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/admin/css/nunito.css')}}" rel="stylesheet">
+    <link href="{{ asset('admin/assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('admin/assets/css/nunito.css')}}" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('assets/admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/admin/css/toastr.css') }}">
+    <link href="{{ asset('admin/assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/toastr.css') }}">
 </head>
 
 <body id="page-top">
@@ -37,7 +37,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                @include('admin.layouts.header')
+
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
