@@ -18,6 +18,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('category','CategoryController');
     Route::resource('producttype','ProductTypeController');
     Route::resource('product','ProductController');
+
+    Route::post('updatePro/{id}','ProductController@update');
 });
 
 Route::get('getproducttype','AjaxController@getproducttype');

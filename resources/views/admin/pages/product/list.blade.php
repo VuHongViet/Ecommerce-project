@@ -106,6 +106,7 @@ Danh sách loại sản phẩm
                                 <input type="text" name="color" placeholder="Nhập tên màu sản phẩm"
                                     class="form-control color">
                                 <div class="alert alert-danger errorColor"></div>
+                            </div>
                                 <img class="img img-thumnail imageThum" width="70" height="70" lign="center">
                                 <div class="form-group">
                                     <label for="price">Ảnh minh họa</label>

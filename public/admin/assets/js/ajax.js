@@ -174,7 +174,7 @@ $(document).ready(function(){
                 });
                 $('.imageThums').html(thum);
                 CKEDITOR.instances['ckeditor'].setData(data.product.description);
-                CKEDITOR.instances['information'].setData(data.product.infor);
+                CKEDITOR.instances['information'].setData(data.product.information);
 				let html1 = '';
 				$.each(data.category,function(key,value){
 					if(data.product.idCategory == value['id']){
@@ -246,8 +246,18 @@ $(document).ready(function(){
 							$('.errorDescription').text(data.message.description[0]);
 							$('.description').val('');
 						}
-					}else{
-						toastr.success(data.result, 'Thông báo', {timeOut: 5000});
+						if(data.message.information){
+							$('.errorInformation').show();
+							$('.errorInformation').text(data.message.information[0]);
+							$('.information').val('');
+                        }
+                        if(data.message.color){
+							$('.errorColor').show();
+							$('.errorColor').text(data.message.color[0]);
+							$('.color').val('');
+						}
+					}
+					else{
 						$('#edit').modal('hide');
 						location.reload();
 					}

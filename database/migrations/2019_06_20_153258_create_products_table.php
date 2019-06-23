@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->float('price',11);
             $table->float('promotional',11);
             $table->string('color');
-            $table->text('infor');
+            $table->text('information');
             $table->string('image');
             $table->unsignedBigInteger('idCategory');
             $table->unsignedBigInteger('idProductType');

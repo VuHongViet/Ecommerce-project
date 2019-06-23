@@ -10,6 +10,7 @@ use App\Model\ProductDetails;
 use Str;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\StoreProductRequest;
+use Validator;
 
 class ProductController extends Controller
 {
@@ -122,6 +123,40 @@ class ProductController extends Controller
      */
     public function update(Request $request,$id)
     {
+        $validator = Validator::make($request->all(),
+            [
+                'name'=>'required|min:2|max:255',
+                'quantity'=>'required',
+                'price'=>'required|numeric',
+                'promotional'=>'required|numeric',
+                'image'=>'image',
+                'product_details.*'=>'image|mimes:jpg,png,jpeg,gif|max:1048576',
+                'description'=>'required',
+                'information'=>'required',
+                'color'=>'required',
+            ],
+            [
+                'required'=>':attribute không được để trống',
+                'min'=>':attribute tối thiểu phải có 2 kí tự',
+                'max'=>':attribute tối đa 255 kí tự',
+                'numeric'=>':attribute phải là số',
+                'image'=>':attribute không là hình ảnh',
+            ],
+            [
+                'name'=>'Tên sản phẩm',
+                'quantity'=>'Số Lượng',
+                'price'=>'Giá',
+                'promotional'=>'Giá Khuyến Mãi',
+                'image'=>'Ảnh',
+                'description'=>'Mô tả sản phẩm',
+                'information'=>'Thông tin chung',
+                'product_details'=> 'Chi tiết ảnh',
+                'color'=>'Màu',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=>'true','message'=>$validator->errors()],200);
+        }
         $product = Product::find($id);
         $data=$request->all();
         $data['slug']=Str_Slug($request->name);
@@ -144,7 +179,6 @@ class ProductController extends Controller
                         if(File::exists(public_path('img/upload/product/'.$product->image))){
                             File::delete(public_path('img/upload/product/'.$product->image));
                         }
-                    return redirect()->route('product.index');
                    }
                }else {
                     return response()->json(['error'=>'Hình ảnh lớn hơn 1MB']);
@@ -153,25 +187,24 @@ class ProductController extends Controller
                 return response()->json(['error'=>'File bạn chọn không phải là hình ảnh']);
             }
         }
-        elseif ($request->hasFile('product_details')) {
-            $product_details = ProductDetails::where('idProduct',$product->id)->get();
+        if ($request->hasFile('product_details')) {
+           $product_details = ProductDetails::where('idProduct',$product->id)->get();
+           foreach($product_details as $product_img){
+                if(File::exists(public_path('img/upload/product_details/'.$product_img->image))){
+                    File::delete(public_path('img/upload/product_details/'.$product_img->image));
+                }
+                $product_img->delete();
+            }
             foreach($request->product_details as $img){
                 $file_tail =$img->getClientOriginalExtension();
                 $file_name =rand().'_'.Str_Slug($img->getClientOriginalName());
                 $file_name = str_replace($file_tail,'.'.$file_tail,$file_name);
                 $img->move('img/upload/product_details',$file_name);
-                $data['image']=$file_name;
-                $data['idProduct']=$product_details->id;
-                $product_details->update($data);
+                ProductDetails::create([
+                    'image'=>$file_name,
+                    'idProduct'=> $product->id,
+                ]);
             }
-            foreach($product_details as $product_img){
-                if(File::exists(public_path('img/upload/product_details/'.$product_img->image))){
-                    File::delete(public_path('img/upload/product_details/'.$product_img->image));
-                }
-            }
-        }
-        else {
-            $data['image']=$product->image;
         }
         $product->update($data);
         return response()->json(['success'=>'Sửa thành công']);
