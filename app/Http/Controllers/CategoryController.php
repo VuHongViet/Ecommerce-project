@@ -76,30 +76,15 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(StoreCategoryRequest $request,$id)
     {
-        $validator = Validator::make($request->all(),
-            [
-                'name'=>'required|min:2|max:255'
-            ],
-            [
-                'required'=>'Tên danh mục không được để trống',
-                'min'=>'Tên danh mục tối thiểu phải có 2 kí tự',
-                'max'=>'Tên danh mục tối đa 255 kí tự'
-            ]
-        );
-        if ($validator->fails()) {
-            return response()->json(['errors'=>'true','message'=>$validator->errors()]);
-        }
-        else {
-            $cate = Category::find($id);
-            $cate->update([
-                'name'=>$request->name,
-                'slug'=>Str::slug($request->name)
-            ]);
-            return response()->json(['success'=>'Sửa thành công']);
+        $cate = Category::find($id);
+        $cate->update([
+            'name'=>$request->name,
+            'slug'=>Str::slug($request->name)
+        ]);
+        return response()->json(['success'=>'Sửa thành công']);
 
-        }
     }
     /**
      * Remove the specified resource from storage.

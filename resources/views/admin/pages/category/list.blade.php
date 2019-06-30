@@ -51,29 +51,29 @@
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa category <span class="title"></span></h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row" style="margin: 5px">
-                        <div class="col-lg-12">
-                            <form role="form">
+                <form role="form" id="updateCategory" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa <span class="title"></span></h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="margin: 5px">
+                            <div class="col-lg-12">
                                 <fieldset class="form-group">
                                     <label>Name</label>
                                     <input class="form-control name" name="name" placeholder="Nhập tên category">
-                                    <span class="error" style="color: red;font-size: 1rem;"></span>
+                                    <div class="alert alert-danger errorName"></div>
                                 </fieldset>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success update">Sửa</button>
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success update">Sửa</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

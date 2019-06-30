@@ -9,42 +9,42 @@ Thêm sản phẩm
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Thêm sản phẩm</h6>
     </div>
+
     <div class="row" style="margin: 5px">
         <div class="col-lg-12">
             <form role="form" action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <fieldset class="form-group">
                     <label>Tên sản phẩm</label>
-                    <input class="form-control" name="name" placeholder="Nhập tên loại sản phẩm">
+                    <input class="form-control" name="name" placeholder="Nhập tên loại sản phẩm" value="{{old('name')}}">
                     @if ($errors->has('name'))
                     <span class="error" style="color: red;font-size: 1rem;">{{$errors->first('name')}}</span>
                     @endif
                 </fieldset>
                 <div class="form-group">
                     <label for="quantity">Số lượng</label>
-                    <input type="number" name="quantity" min="1" value="1" class="form-control">
+                    <input type="number" name="quantity" min="1" value="1" class="form-control" value="{{old('quantity')}}">
                     @if ($errors->has('quantity'))
                     <span class="error" style="color: red;font-size: 1rem;">{{$errors->first('quantity')}}</span>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="price">Đơn giá</label>
-                    <input type="text" name="price" placeholder="Nhập đơn giá" class="form-control">
+                    <input type="text" name="price" placeholder="Nhập đơn giá" class="form-control" value="{{old('price')}}">
                     @if ($errors->has('price'))
                     <span class="error" style="color: red;font-size: 1rem;">{{$errors->first('price')}}</span>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="price">Giá khuyến mại</label>
-                    <input type="text" name="promotional" value="0" placeholder="Nhập giá khuyến mại nếu có"
-                        class="form-control">
+                    <input type="text" name="promotional" value="0" placeholder="Nhập giá khuyến mại nếu có" class="form-control" value="{{old('promotional')}}">
                     @if ($errors->has('promotional'))
                     <span class="error" style="color: red;font-size: 1rem;">{{$errors->first('promotional')}}</span>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="price">Màu</label>
-                    <input type="text" name="color" placeholder="Nhập tên màu sản phẩm" class="form-control">
+                    <input type="text" name="color" placeholder="Nhập tên màu sản phẩm" class="form-control" value="{{old('color')}}">
                     @if ($errors->has('color'))
                     <span class="error" style="color: red;font-size: 1rem;">{{$errors->first('color')}}</span>
                     @endif
@@ -63,19 +63,22 @@ Thêm sản phẩm
                     @if ($errors->has('product_details'))
                     <span class="error" style="color: red;font-size: 1rem;">{{$errors->first('product_details')}}</span>
                     @endif
+                    @if ($errors->has('product_details.*'))
+                    <span class="error" style="color: red;font-size: 1rem;">{{$errors->first('product_details.*')}}</span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label>Mô tả sản phẩm</label>
-                    <textarea name="description" cols="5" rows="5" class="form-control ckeditor"></textarea>
+                    <textarea name="description" cols="5" rows="5" class="form-control ckeditor">{{old('description')}}</textarea>
                     @if ($errors->has('description'))
                     <span class="error" style="color: red;font-size: 1rem;">{{$errors->first('description')}}</span>
                     @endif
                 </div>
                 <div class="form-group">
                     <label>Thông Tin chung</label>
-                    <textarea name="information" cols="5" rows="5" class="form-control ckeditor"></textarea>
-                    @if ($errors->has('description'))
-                    <span class="error" style="color: red;font-size: 1rem;">{{$errors->first('description')}}</span>
+                    <textarea name="information" cols="5" rows="5" class="form-control ckeditor">{{old('information')}}</textarea>
+                    @if ($errors->has('information'))
+                    <span class="error" style="color: red;font-size: 1rem;">{{$errors->first('information')}}</span>
                     @endif
                 </div>
                 <div class="form-group">

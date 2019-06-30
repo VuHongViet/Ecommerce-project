@@ -26,4 +26,8 @@ class Product extends Model
     {
         return $this->hasMany('App\Model\Comment', 'idProduct', 'id');
     }
+    public function Cart()
+    {
+        return $this->belongsTo('App\Model\Cart', 'idProduct', 'id');
+    }
 }

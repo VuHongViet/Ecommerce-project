@@ -18,7 +18,7 @@
                         <input class="form-control" name="name" placeholder="Nhập tên category">
                         @if ($errors->any())
                             @foreach ($errors->all() as $error)
-                                <span class="error" style="color: red;font-size: 1rem;">{{$error}}</span>
+                                <div class="alert alert-danger errorName">{{$error}}</div>
                             @endforeach
                         @endif
 	                </fieldset>

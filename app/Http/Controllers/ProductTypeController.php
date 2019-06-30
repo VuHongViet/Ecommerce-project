@@ -7,7 +7,7 @@ use App\Model\Category;
 use App\Model\ProductType;
 use Str;
 use App\Http\Requests\StoreProductTypeRequest;
-use Validator;
+use App\Http\Requests\UpdateProducttypeRequest;
 
 class ProductTypeController extends Controller
 {
@@ -41,11 +41,17 @@ class ProductTypeController extends Controller
      */
     public function store(StoreProductTypeRequest $request)
     {
-        ProductType::create([
-            'idCategory'=> $request->idCategory,
-            'name'=>$request->name,
-            'slug'=>Str::slug($request->name)
-        ]);
+        $file =$request->image;
+        $file_name =$file->getClientOriginalName();
+        $file_tail =$file->getClientOriginalExtension();
+        $file_name =rand().'_'.Str_Slug($file_name);
+        $file_name = str_replace($file_tail,'.'.$file_tail,$file_name);
+        if ($file->move('img/upload/producttype',$file_name)) {
+            $data=$request->all();
+            $data['slug']=Str_Slug($request->name);
+            $data['image']=$file_name;
+            $productype= Producttype::create($data);
+        }
         return redirect()->route('producttype.index');
     }
 
@@ -80,32 +86,28 @@ class ProductTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProducttypeRequest $request, $id)
     {
-        $validator = Validator::make($request->all(),
-            [
-                'name'=>'required|min:2|max:255'
-            ],
-            [
-                'required'=>'Tên loại sản phẩm không được để trống',
-                'min'=>'Tên loại sản phẩm tối thiểu phải có 2 kí tự',
-                'max'=>'Tên loại sản phẩm tối đa 255 kí tự',
-                'unique'=>'Tên loại sản phẩm đã tồn tại'
-            ]
-        );
-        if ($validator->fails()) {
-            return response()->json(['errors'=>'true','message'=>$validator->errors()]);
+        $producttype = ProductType::find($id);
+        $data= $request->all();
+        $data['slug']=Str_Slug($request->name);
+        if ($request->hasFile('image')) {
+            $file =$request->image;
+            $file_name =$file->getClientOriginalName();
+            $file_tail =$file->getClientOriginalExtension();
+            $file_name =rand().'_'.Str_Slug($file_name);
+            $file_name = str_replace($file_tail,'.'.$file_tail,$file_name);
+            $file->move('img/upload/producttype',$file_name);
+            if(File::exists(public_path('img/upload/producttype/'.$producttype->image))){
+                File::delete(public_path('img/upload/producttype/'.$producttype->image));
+            }
+            $data['image']=$file_name;
         }
         else {
-            $producttype = ProductType::find($id);
-            $producttype->update([
-                'idCategory'=> $request->idCategory,
-                'name'=>$request->name,
-                'slug'=>Str::slug($request->name)
-            ]);
-            return response()->json(['success'=>'Sửa thành công']);
-
+            $data['image']=$producttype->image;
         }
+        $producttype->update($data);
+        return response()->json(['success'=>'Sửa thành công']);
     }
 
     /**

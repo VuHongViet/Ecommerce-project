@@ -24,7 +24,9 @@ class StoreProductTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|min:2|max:255|unique:product_types,name'
+            'name'=>'required|min:2|max:255|unique:product_types,name',
+            'image'=>'required|image|mimes:jpg,jpeg,png,gif|max:1048576',
+            'idCategory'=>'required',
         ];
     }
     public function messages(){
@@ -32,12 +34,18 @@ class StoreProductTypeRequest extends FormRequest
             'required'=>':attribute không được để trống',
             'min'=>':attribute tối thiểu phải có 2 kí tự',
             'max'=>':attribute tối đa 255 kí tự',
-            'unique'=>':attribute đã tồn tại'
+            'image'=>'Đây không phải là hình :attribute',
+            'mimes'=>'Đây không phải là hình :attribute',
+            'image.max'=>':atrribute tối đa không quá 1MB',
+            'unique'=>':attribute đã tồn tại',
+            'uploaded'=>'Đây không phải là hình :attribute',
         ];
     }
     public function attributes(){
         return[
             'name'=>'Tên loại sản phẩm',
+            'image'=>'Ảnh',
+            'idCategory'=>'Tên danh mục',
         ];
     }
 }

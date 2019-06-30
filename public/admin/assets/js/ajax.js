@@ -5,7 +5,7 @@ $.ajaxSetup({
 });
 $(document).ready(function(){
 	$('.edit').click(function(){
-		$('.error').hide();
+		$('.errorName').hide();
         let id = $(this).data('id');
 		//Edit
 		$.ajax({
@@ -18,26 +18,24 @@ $(document).ready(function(){
 				$('.title').text($result.name);
 			}
 		});
-		$('.update').click(function(){
-			let ten = $('.name').val();
+		$('#updateCategory').on('submit',function(event){
+            event.preventDefault();
 			$.ajax({
-				url : 'admin/category/'+id,
-				data : {
-					name : ten,
-				},
-				type : 'put',
-				dataType : 'json',
+				url : 'admin/updateCate/'+id,
+				data : new FormData(this),
+				contentType : false,
+				processData : false,
+				cache : false,
+				type : 'post',
 				success : function($result){
-					console.log($result);
-					if($result.errors == 'true'){
-						$('.error').show();
-						$('.error').text($result.message.name[0]);
-					}else{
-						$('#edit').modal('hide');
-						location.reload();
-					}
-
-				}
+                    $('#edit').modal('hide');
+                    location.reload();
+                },
+                error:function(error){
+                    var bugs = JSON.parse(error.responseText);
+                    $('.errorName').show();
+                    $('.errorName').text(bugs.errors.name);
+                }
 			});
 		});
 	});
@@ -59,14 +57,14 @@ $(document).ready(function(){
 
 	//Edit ProductType
 	$('.editProducttype').click(function(){
-		$('.error').hide();
+        $('.errorName').hide();
+        $('.errorImage').hide();
 		let id = $(this).data('id');
 		$.ajax({
 			url : 'admin/producttype/'+id+'/edit',
 			dataType : 'json',
 			type : 'get',
 			success : function($result){
-                console.log($result);
 				$('.name').val($result.producttype.name);
 				var html = '';
 				$.each($result.category,function($key,$value){
@@ -80,31 +78,35 @@ $(document).ready(function(){
 						html += '</option>';
 					}
 				});
-				$('.idCategory').html(html);
-			}
+                $('.idCategory').html(html);
+                $('.imageThum').attr('src','img/upload/producttype/'+$result.producttype.image);
+            }
 		});
-		$('.updateProductType').click(function(){
-			let idCategory = $('.idCategory').val();
-			let name = $('.name').val();
-			let status = $('status').val();
+		$('#updateProducttype').on('submit',function(event){
+            event.preventDefault();
 			$.ajax({
-				url : 'admin/producttype/'+id,
-				dataType : 'json',
-				data : {
-					idCategory : idCategory,
-					name : name,
-				},
-				type : 'put',
+				url : 'admin/updateProductype/'+id,
+                data: new FormData(this),
+                contentType:false,
+                processData:false,
+                cache:false,
+				type : 'post',
 				success : function($result){
-                    console.log($result);
-					if($result.errors == 'true'){
-						$('.error').show();
-						$('.error').text($result.message.name[0]);
-					}else{
-						$('#edit').modal('hide');
-						location.reload();
-					}
-				}
+                    $('#edit').modal('hide');
+                    location.reload();
+                },
+                error:function(error){
+                    var bugs = JSON.parse(error.responseText);
+                    if(bugs.errors.name){
+                        $('.errorName').show();
+                        $('.errorName').text(bugs.errors.name);
+                    }
+                    if(bugs.errors.image){
+                        $('.Image').val('');
+                        $('.errorImage').show();
+                        $('.errorImage').text(bugs.errors.image);
+                    }
+                }
 			})
 		});
 	});
@@ -214,54 +216,58 @@ $(document).ready(function(){
 				cache : false,
 				type : 'post',
 				success : function(data){
-					console.log(data);
-					if(data.error == 'true'){
-						if(data.message.image){
-							$('.errorImage').show();
-							$('.errorImage').text(data.message.image[0]);
-							$('.image').val('');
-						}
-						if(data.message.name){
-							$('.errorName').show();
-							$('.errorName').text(data.message.name[0]);
-							$('.name').val('');
-						}
-						if(data.message.quantity){
-							$('.errorQuantity').show();
-							$('.errorQuantity').text(data.message.quantity[0]);
-							$('.quantity').val('');
-						}
-						if(data.message.price){
-							$('.errorPrice').show();
-							$('.errorPrice').text(data.message.price[0]);
-							$('.price').val('');
-						}
-						if(data.message.promotional){
-							$('.errorPromotional').show();
-							$('.errorPromotional').text(data.message.promotional[0]);
-							$('.promotional').val('');
-						}
-						if(data.message.description){
-							$('.errorDescription').show();
-							$('.errorDescription').text(data.message.description[0]);
-							$('.description').val('');
-						}
-						if(data.message.information){
-							$('.errorInformation').show();
-							$('.errorInformation').text(data.message.information[0]);
-							$('.information').val('');
-                        }
-                        if(data.message.color){
-							$('.errorColor').show();
-							$('.errorColor').text(data.message.color[0]);
-							$('.color').val('');
-						}
+					$('#edit').modal('hide');
+					location.reload();
+				},
+				error:function(error){
+                    var bugs = JSON.parse(error.responseText);
+                    console.log(bugs);
+					if(bugs.errors.image){
+						$('.errorImage').show();
+						$('.errorImage').text(bugs.errors.image[0]);
+						$('.image').val('');
+                    }
+                    if(bugs.errors.product_details+'.0'){
+						$('.errorPhoto').show();
+						$('.errorPhoto').text('Chi tiết ảnh có file không phải là ảnh');
+                        $('.product_details').val('');
 					}
-					else{
-						$('#edit').modal('hide');
-						location.reload();
+					if(bugs.errors.name){
+						$('.errorName').show();
+						$('.errorName').text(bugs.errors.name[0]);
+						$('.name').val('');
 					}
-				}
+					if(bugs.errors.quantity){
+						$('.errorQuantity').show();
+						$('.errorQuantity').text(bugs.errors.quantity[0]);
+						$('.quantity').val('');
+					}
+					if(bugs.errors.price){
+						$('.errorPrice').show();
+						$('.errorPrice').text(bugs.errors.price[0]);
+						$('.price').val('');
+					}
+					if(bugs.errors.promotional){
+						$('.errorPromotional').show();
+						$('.errorPromotional').text(bugs.errors.promotional[0]);
+						$('.promotional').val('');
+					}
+					if(bugs.errors.description){
+						$('.errorDescription').show();
+						$('.errorDescription').text(bugs.errors.description[0]);
+						$('.description').val('');
+					}
+					if(bugs.errors.information){
+						$('.errorInformation').show();
+						$('.errorInformation').text(bugs.errors.information[0]);
+						$('.information').val('');
+					}
+					if(bugs.errors.color){
+						$('.errorColor').show();
+						$('.errorColor').text(bugs.errors.color[0]);
+						$('.color').val('');
+					}
+                }
 			});
 		});
 	});

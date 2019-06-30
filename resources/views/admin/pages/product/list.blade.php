@@ -102,46 +102,49 @@ Danh sách loại sản phẩm
                                 <div class="alert alert-danger errorPromotional"></div>
                             </div>
                             <div class="form-group">
-                                <label for="price">Màu</label>
+                                <label>Màu</label>
                                 <input type="text" name="color" placeholder="Nhập tên màu sản phẩm"
                                     class="form-control color">
                                 <div class="alert alert-danger errorColor"></div>
                             </div>
-                                <img class="img img-thumnail imageThum" width="70" height="70" lign="center">
-                                <div class="form-group">
-                                    <label for="price">Ảnh minh họa</label>
-                                    <input type="file" name="image" class="form-control image">
-                                    <div class="alert alert-danger errorImage"></div>
-                                </div>
-                                <div class="imageThums"></div>
-                                <div class="form-group">
-                                    <label for="text">Ảnh chi tiết</label><br>
-                                    <input type="file" name="product_details[]" class="form-control product_details"
-                                        multiple="multiple">
-                                    <div class="alert alert-danger errorPhoto"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Mô tả sản phẩm</label>
-                                    <textarea name="description" cols="5" rows="5"
-                                        class="form-control description ckeditor" id="ckeditor"></textarea>
-                                    <div class="alert alert-danger errorDescription"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Thông Tin chung</label>
-                                    <textarea name="information" cols="5" rows="5"
-                                        class="form-control ckeditor information" id="information"></textarea>
-                                    <div class="alert alert-danger errorInformation"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Danh mục sản phẩm</label>
-                                    <select class="form-control cateProduct" name="idCategory"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Loại sản phẩm</label>
-                                    <select class="form-control proTypeProduct" name="idProductType"></select>
-                                </div>
-                                <input type="submit" class="btn btn-success" value="Sửa">
-                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
+                            <img class="img img-thumnail imageThum" width="70" height="70" lign="center">
+                            <div class="form-group">
+                                <label>Ảnh minh họa</label>
+                                <input type="file" name="image" class="form-control image">
+                                <div class="alert alert-danger errorImage"></div>
+                            </div>
+
+                            <div class="imageThums"></div>
+                            <div class="form-group">
+                                <label>Ảnh chi tiết</label><br>
+                                <input type="file" name="product_details[]" class="form-control product_details"
+                                    multiple="multiple">
+                                <div class="alert alert-danger errorPhoto"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mô tả sản phẩm</label>
+                                <textarea name="description" cols="5" rows="5"
+                                    class="form-control description ckeditor" id="ckeditor"></textarea>
+                                <div class="alert alert-danger errorDescription"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Thông Tin chung</label>
+                                <textarea name="information" cols="5" rows="5"
+                                    class="form-control ckeditor information" id="information"></textarea>
+                                <div class="alert alert-danger errorInformation"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Danh mục sản phẩm</label>
+                                <select class="form-control cateProduct" name="idCategory"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Loại sản phẩm</label>
+                                <select class="form-control proTypeProduct" name="idProductType"></select>
+                            </div>
+                            <input type="submit" class="btn btn-success" value="Sửa">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                         </form>
                     </div>
                 </div>

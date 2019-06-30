@@ -10,7 +10,7 @@ use App\Model\ProductDetails;
 use Str;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\StoreProductRequest;
-use Validator;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -45,47 +45,29 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        if ($request->hasFile('image')) {
-            $file =$request->image;
-            //Lấy tên ảnh
-            $file_name =$file->getClientOriginalName();
-            //Lấy loại ảnh
-            $file_type = $file->getMimeType();
-            //Lấy kích thước ảnh
-            $file_size = $file->getSize();
-            if ($file_type =='image/png'||$file_type =='image/jpg'||$file_type =='image/jpeg'||$file_type =='image/gif') {
-               if ($file_size <= 1048576) {
-                   //Lấy đuôi ảnh
-                   $file_tail =$file->getClientOriginalExtension();
-                   $file_name =rand().'_'.Str_Slug($file_name);
-                   $file_name = str_replace($file_tail,'.'.$file_tail,$file_name);
-                   if ($file->move('img/upload/product',$file_name)) {
-                    $data=$request->all();
-                    $data['slug']=Str_Slug($request->name);
-                    $data['image']=$file_name;
-                    $product= Product::create($data);
-                    foreach($request->product_details as $img){
-                        $file_tail =$img->getClientOriginalExtension();
-                        $file_name =rand().'_'.Str_Slug($img->getClientOriginalName());
-                        $file_name = str_replace($file_tail,'.'.$file_tail,$file_name);
-                        $img->move('img/upload/product_details',$file_name);
-                        ProductDetails::create([
-                            'image'=>$file_name,
-                            'idProduct'=> $product->id,
-                        ]);
-                    }
-                    return redirect()->route('product.index');
-                   }
-               }else {
-                return back()->with('images','Hình ảnh lớn hơn 1MB');
-                }
-            }else {
-                return back()->with('images','File bạn chọn không phải là hình ảnh');
-                }
+        $file =$request->image;
+        //Lấy tên ảnh
+        $file_name =$file->getClientOriginalName();
+        //Lấy đuôi ảnh
+        $file_tail =$file->getClientOriginalExtension();
+        $file_name =rand().'_'.Str_Slug($file_name);
+        $file_name = str_replace($file_tail,'.'.$file_tail,$file_name);
+        $file->move('img/upload/product',$file_name);
+        $data=$request->all();
+        $data['slug']=Str_Slug($request->name);
+        $data['image']=$file_name;
+        $product= Product::create($data);
+        foreach($request->product_details as $img){
+            $file_tail =$img->getClientOriginalExtension();
+            $file_name =rand().'_'.Str_Slug($img->getClientOriginalName());
+            $file_name = str_replace($file_tail,'.'.$file_tail,$file_name);
+            $img->move('img/upload/product_details',$file_name);
+            ProductDetails::create([
+                'image'=>$file_name,
+                'idProduct'=> $product->id,
+            ]);
         }
-        else {
-            return back()->with('images','Hình ảnh không được để trống');
-        }
+        return redirect()->route('product.index');
     }
 
     /**
@@ -121,42 +103,8 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(UpdateProductRequest $request,$id)
     {
-        $validator = Validator::make($request->all(),
-            [
-                'name'=>'required|min:2|max:255',
-                'quantity'=>'required',
-                'price'=>'required|numeric',
-                'promotional'=>'required|numeric',
-                'image'=>'image',
-                'product_details.*'=>'image|mimes:jpg,png,jpeg,gif|max:1048576',
-                'description'=>'required',
-                'information'=>'required',
-                'color'=>'required',
-            ],
-            [
-                'required'=>':attribute không được để trống',
-                'min'=>':attribute tối thiểu phải có 2 kí tự',
-                'max'=>':attribute tối đa 255 kí tự',
-                'numeric'=>':attribute phải là số',
-                'image'=>':attribute không là hình ảnh',
-            ],
-            [
-                'name'=>'Tên sản phẩm',
-                'quantity'=>'Số Lượng',
-                'price'=>'Giá',
-                'promotional'=>'Giá Khuyến Mãi',
-                'image'=>'Ảnh',
-                'description'=>'Mô tả sản phẩm',
-                'information'=>'Thông tin chung',
-                'product_details'=> 'Chi tiết ảnh',
-                'color'=>'Màu',
-            ]
-        );
-        if ($validator->fails()) {
-            return response()->json(['error'=>'true','message'=>$validator->errors()],200);
-        }
         $product = Product::find($id);
         $data=$request->all();
         $data['slug']=Str_Slug($request->name);

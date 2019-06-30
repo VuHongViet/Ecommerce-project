@@ -18,10 +18,11 @@ class CreateCartTable extends Migration
             $table->string('name');
             $table->float('price',11);
             $table->integer('quantity');
-            $table->string('image');
             $table->float('total',11);
             $table->unsignedBigInteger('idUser');
             $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('idProduct');
+            $table->foreign('idProduct')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

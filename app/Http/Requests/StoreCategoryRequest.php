@@ -24,14 +24,15 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|min:2|max:255'
+            'name'=>'required|min:2|max:255|unique:category,name,'.$this->id,
         ];
     }
     public function messages(){
         return [
             'required'=>':attribute không được để trống',
             'min'=>':attribute tối thiểu phải có 2 kí tự',
-            'max'=>':attribute tối đa 255 kí tự'
+            'max'=>':attribute tối đa 255 kí tự',
+            'unique'=>':attribute đã tồn tại'
         ];
     }
     public function attributes(){

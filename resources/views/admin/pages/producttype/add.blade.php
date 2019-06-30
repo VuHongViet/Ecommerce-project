@@ -11,24 +11,33 @@
 	    </div>
 		<div class="row" style="margin: 5px">
 	        <div class="col-lg-12">
-	            <form role="form" action="{{ route('producttype.store') }}" method="post">
+	            <form role="form" action="{{ route('producttype.store') }}" method="post" enctype="multipart/form-data">
 	            	@csrf
 	                <fieldset class="form-group">
 	                    <label>Name</label>
-                        <input class="form-control" name="name" placeholder="Nhập tên loại sản phẩm">
-                        @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <span class="error" style="color: red;font-size: 1rem;">{{$error}}</span>
-                            @endforeach
+                        <input class="form-control" name="name" value="{{old('name')}}" placeholder="Nhập tên loại sản phẩm">
+                        @if ($errors->has('name'))
+                            <div class="alert alert-danger errorName">{{$errors->first('name')}}</div>
                         @endif
-	                </fieldset>
+                    </fieldset>
+                    <div class="form-group">
+                        <label for="text">Ảnh minh họa</label><br>
+                        <input type="file" name="image" class="form-control">
+
+                        @if ($errors->has('image'))
+                            <div class="alert alert-danger errorName">{{$errors->first('image')}}</div>
+                        @endif
 	                <div class="form-group">
 	                    <label>Category</label>
 	                    <select class="form-control" name="idCategory">
 							@foreach($category as $cate)
 	                        	<option value="{{ $cate->id }}">{{ $cate->name }}</option>
 	                        @endforeach
-	                    </select>
+                        </select>
+
+                        @if ($errors->has('idCategory'))
+                            <div class="alert alert-danger errorName">{{$errors->first('idCategory')}}</div>
+                        @endif
 	                </div>
 	                <button type="submit" class="btn btn-success">Thêm</button>
 	                <button type="reset" class="btn btn-primary">Nhập Lại</button>

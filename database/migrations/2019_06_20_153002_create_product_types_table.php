@@ -17,6 +17,7 @@ class CreateProductTypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug');
+            $table->string('image');
             $table->unsignedBigInteger('idCategory');
             $table->foreign('idCategory')->references('id')->on('Category')->onDelete('cascade');
             $table->timestamps();

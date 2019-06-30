@@ -29,7 +29,8 @@ class StoreProductRequest extends FormRequest
             'price'=>'required|numeric',
             'promotional'=>'required|numeric',
             'image'=>'required|image',
-            'product_details.*'=>'required|image|mimes:jpg,png,jpeg,gif|max:1048576',
+            'product_details'=>'required',
+            'product_details.*'=>'image|mimes:jpg,png,jpeg,gif|max:1048576',
             'description'=>'required',
             'information'=>'required',
             'color'=>'required',
@@ -42,7 +43,9 @@ class StoreProductRequest extends FormRequest
             'max'=>':attribute tối đa 255 kí tự',
             'name.unique'=>':attribute đã tồn tại',
             'numeric'=>':attribute phải là số',
-            'image'=>':attribute không là hình ảnh',
+            'image'=>':attribute có file không phải là hình ảnh',
+            'mimes'=>':attribute có file không phải là một tệp loại: jpg, png, jpeg, gif',
+            'uploaded'=>':attribute có file không phải là hình ảnh',
         ];
     }
     public function attributes(){
@@ -56,6 +59,7 @@ class StoreProductRequest extends FormRequest
             'information'=>'Thông tin chung',
             'product_details'=> 'Chi tiết ảnh',
             'color'=>'Màu',
+            'product_details.*'=>'Chi tiết ảnh'
         ];
     }
 }

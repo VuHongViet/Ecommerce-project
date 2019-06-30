@@ -17,7 +17,8 @@
 	                    <tr>
 	                        <th>STT</th>
 	                        <th>Name</th>
-	                        <th>Slug</th>
+                            <th>Slug</th>
+                            <th>Ảnh</th>
 	                        <th>Category</th>
 	                        <th>Chỉnh sửa</th>
 	                    </tr>
@@ -25,8 +26,9 @@
 	                <tfoot>
 	                    <tr>
 	                        <th>STT</th>
-	                        <th>Name</th>
-	                        <th>Slug</th>
+                            <th>Name</th>
+                            <th>Slug</th>
+                            <th>Ảnh</th>
 	                        <th>Category</th>
 	                        <th>Chỉnh sửa</th>
 	                    </tr>
@@ -36,8 +38,11 @@
 		                    <tr>
 		                        <td>{{ $key+1 }}</td>
 		                        <td>{{ $value->name }}</td>
-		                        <td>{{ $value->slug }}</td>
-		                        <td>{{ $value->Category->name }}</td>
+                                <td>{{$value->slug}}</td>
+                                <td>
+                                    <img src="{{ asset('img/upload/producttype/'.$value->image) }}" alt="{{$value->name}}" width="100" height="100">
+                                </td>
+                                <td>{{ $value->Category->name }}</td>
 		                        <td>
 		                        	<button class="btn btn-primary editProducttype" title="{{ "Sửa ".$value->name }}" data-toggle="modal" data-target="#edit" type="button" data-id="{{ $value->id }}"><i class="fas fa-edit"></i></button>
 		                        	<button class="btn btn-danger deleteProducttype" title="{{ "Xóa ".$value->name }}" data-toggle="modal" data-target="#delete" type="button" data-id="{{ $value->id }}"><i class="fas fa-trash-alt"></i></button>
@@ -54,33 +59,39 @@
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa category <span class="title"></span></h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row" style="margin: 5px">
-				        <div class="col-lg-12">
-				            <form role="form">
-				                <fieldset class="form-group">
-				                    <label>Name</label>
-				                    <input class="form-control name" name="name" placeholder="Nhập tên loại sản phẩm">
-									<span class="error" style="color: red;font-size: 1rem;"></span>
-				                </fieldset>
-				                <div class="form-group">
-				                    <label>Category</label>
-				                    <select class="form-control idCategory" name="idCategory"></select>
-				                </div>
-				            </form>
-				        </div>
-				    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success updateProductType">Save</button>
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                </div>
+                <form role="form" method="POST" id="updateProducttype" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa <span class="title"></span></h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="margin: 5px">
+                            <div class="col-lg-12">
+                                <fieldset class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control name" name="name" placeholder="Nhập tên loại sản phẩm">
+                                    <div class="alert alert-danger errorName"></div>
+                                </fieldset>
+                                <img class="img img-thumnail imageThum" width="70" height="70" lign="center">
+                                <fieldset class="form-group">
+                                    <label>Ảnh</label>
+                                <input type="file" name="image" class="form-control Image">
+                                    <div class="alert alert-danger errorImage"></div>
+                                </fieldset>
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select class="form-control idCategory" name="idCategory"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success updateProductType">Save</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
