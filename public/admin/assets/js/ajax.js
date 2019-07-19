@@ -13,7 +13,6 @@ $(document).ready(function(){
 			dataType : 'json',
 			type : 'get',
 			success :function($result){
-				console.log($result);
 				$('.name').val($result.name);
 				$('.title').text($result.name);
 			}
@@ -128,14 +127,13 @@ $(document).ready(function(){
 	$('.cateProduct').change(function(){
 		let idCate = $(this).val();
 		$.ajax({
-			url : 'getproducttype',
+			url : 'ajax/getproducttype',
 			data : {
 				idCate : idCate
 			},
 			type : 'get',
 			dataType : 'json',
 			success : function($data){
-                console.log($data)
 				let html = '';
 				$.each($data,function($key,$value){
 					html += '<option value='+$value['id']+'>';
@@ -163,7 +161,6 @@ $(document).ready(function(){
 			dataType : 'json',
 			type : 'get',
 			success : function(data){
-                console.log(data);
 				$('.name').val(data.product.name);
 				$('.quantity').val(data.product.quantity);
 				$('.price').val(data.product.price);
@@ -221,7 +218,6 @@ $(document).ready(function(){
 				},
 				error:function(error){
                     var bugs = JSON.parse(error.responseText);
-                    console.log(bugs);
 					if(bugs.errors.image){
 						$('.errorImage').show();
 						$('.errorImage').text(bugs.errors.image[0]);
@@ -280,7 +276,6 @@ $(document).ready(function(){
 				type : 'delete',
 				dataType : 'json',
 				success : function($data){
-                    console.log($data);
 				 $('#delete').modal('hide');
 			     location.reload();
 			 	}

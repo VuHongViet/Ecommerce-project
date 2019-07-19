@@ -285,16 +285,6 @@ NOTE: This is Header style file. All Header related style included in this file.
 .header-search-inner {
   position: relative;
 }
-.header-search-inner::before {
-  background: #cf0000 none repeat scroll 0 0;
-  content: "";
-  height: 20px;
-  margin-top: -10px;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 1px;
-}
 .header-search-inner form {}
 .header-search-inner button.search-toggle {
   color: #666;
@@ -317,7 +307,7 @@ NOTE: This is Header style file. All Header related style included in this file.
   right: 20px;
   top: -5px;
   transition: all 0.3s ease 0s;
-  width: 385px;
+  width: 270px;
 }
 .sticky .top-search-box {
   height: 40px;

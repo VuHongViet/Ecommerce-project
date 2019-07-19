@@ -8,7 +8,7 @@ use App\Model\Category;
 use App\Model\ProductType;
 use App\Model\ProductDetails;
 use Str;
-use Illuminate\Support\Facades\File;
+use File;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 

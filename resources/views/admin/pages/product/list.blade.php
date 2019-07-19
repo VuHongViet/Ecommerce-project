@@ -43,7 +43,11 @@ Danh sách loại sản phẩm
                             <br />
                             <b>Đơn giá</b>: {{ $value->price }}
                             <br />
-                            <b>Khuyến mại</b>: {{ $value->promotional }}
+                            @if ($value->promotional>0)
+                                <b>Khuyến mại</b>: {{ $value->promotional }} %
+                            @else
+                                <b>Khuyến mại</b>: {{ $value->promotional }}
+                            @endif
                             <br />
                             <b>Hình minh họa</b>:
                             <img src="{{ asset('img/upload/product/'.$value->image) }}" width="100" height="100">

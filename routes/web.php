@@ -22,10 +22,21 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('updateProductype/{id}','ProducttypeController@update');
 });
 
-Route::get('getproducttype','AjaxController@getproducttype');
 Route::get('callback/{social}','Login_SocicaliteController@handleProviderCallback');
 Route::get('login/{social}','Login_SocicaliteController@redirectProvider')->name('login');
 Route::get('logout','UserController@logout')->name('logout');
 Route::post('register','UserController@register')->name('register');
 Route::post('login','UserController@login')->name('formlogin');
-Route::get('/{slug}','PageController@getdetails');
+Route::get('products','PageController@products')->name('products');
+Route::get('cart','CartController@index')->name('cart');
+Route::get('search','PageController@search')->name('search');
+Route::resource('checkout','OrderController');
+Route::get('/{slug}','PageController@productlist');
+Route::get('get/{product_detail}','PageController@productDetail')->name('product_detail');
+
+Route::group(['prefix' => 'ajax'], function () {
+    Route::get('getproducttype','AjaxController@getproducttype');
+    Route::get('getproduct','AjaxController@getproduct');
+    Route::resource('addcart','CartController');
+});
+

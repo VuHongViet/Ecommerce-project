@@ -3,15 +3,15 @@
         <div class="full-width-mega-dropdown">
             <div class="row">
                 <!-- logo -->
-                <div class="col-md-2 col-sm-6 col-xs-12">
+                <div class="col-md-1 col-sm-6 col-xs-12 col-lg-2">
                     <div class="logo">
-                        <a href="{{route('index')}}">
+                        <a href="{{url('/')}}">
                             <img src={{ asset('client/img/logo/logo.png') }} alt="main logo">
                         </a>
                     </div>
                 </div>
                 <!-- primary-menu -->
-                <div class="col-md-6 hidden-sm hidden-xs">
+                <div class="col-md-7 hidden-sm hidden-xs col-lg-6">
                     <nav id="primary-menu">
                         <ul class="main-menu text-center">
                             <li><a href="{{ url('/')}}">Trang chủ</a>
@@ -57,17 +57,14 @@
                     </nav>
                 </div>
                 <!-- header-search & total-cart -->
-                <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="col-md-4 col-sm-6  col-lg-4 ipad-sm">
                     <div class="search-top-cart  f-right">
                         <!-- header-search -->
                         <div class="header-search f-left">
                             <div class="header-search-inner">
-                                <button class="search-toggle">
-                                    <i class="zmdi zmdi-search"></i>
-                                </button>
-                                <form action="#" method="GET">
+                                <form action="{{route('search')}}" method="GET">
                                     <div class="top-search-box">
-                                        <input type="text" placeholder="Tìm kiếm trên Jewelry">
+                                        <input type="text" placeholder="Tìm kiếm trên Jewelry" name="key">
                                         <button type="submit" title="Search">
                                             <i class="zmdi zmdi-search"></i>
                                         </button>
@@ -80,14 +77,30 @@
                             <div class="total-cart-in">
                                 <div class="cart-toggler">
                                     @if (Auth::check())
-                                        <a href="#" title="Bạn có 2 sản phẩm">
-                                            <span class="cart-quantity">2</span><br>
-                                            <span class="cart-icon">
-                                                <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                            </span>
-                                        </a>
+                                    {{-- Lấy ra các sản phẩm trong giỏ hàng --}}
+                                       <?php $cart = DB::table('cart')->where('idUser',Auth::user()->id)->get(); ?>
+                                       {{-- Đếm số lượng sản phẩm trong giỏ hàng  --}}
+                                       @if (count($cart)>0)
+                                        <?php $total=0;
+                                            foreach ($cart as $item)
+                                                $total += $item->quantity;
+                                        ?>
+                                            <a href="{{route('cart')}}" title="Bạn có {{$total}} sản phẩm" class="infor_count">
+                                                <span class="cart-quantity count">{{$total}}</span><br>
+                                                <span class="cart-icon">
+                                                    <i class="zmdi zmdi-shopping-cart-plus"></i>
+                                                </span>
+                                            </a>
+                                        @else
+                                            <a href="{{route('cart')}}" title="" class="infor_count">
+                                                <span class="cart-quantity count"></span><br>
+                                                <span class="cart-icon ">
+                                                    <i class="zmdi zmdi-shopping-cart-plus"></i>
+                                                </span>
+                                            </a>
+                                        @endif
                                     @else
-                                        <a data-toggle="modal" data-target="#myModal">
+                                        <a data-toggle="modal" data-target="#myModal" style="cursor: pointer">
                                             <span class="cart-quantity"></span><br>
                                             <span class="cart-icon">
                                                 <i class="zmdi zmdi-shopping-cart-plus"></i>
@@ -99,6 +112,59 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xs-12 mobie-xs">
+                        <div class="search-top-cart">
+                            <!-- header-search -->
+                            <div class="header-search">
+                                <form action="{{route('search')}}" method="GET">
+                                    <div class="top-search-box">
+                                        <input type="text" placeholder="Tìm kiếm trên Jewelry" name="key">
+                                        <button type="submit" title="Search">
+                                            <i class="zmdi zmdi-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- total-cart -->
+                            <div class="total-cart">
+                                <div class="total-cart-in">
+                                    <div class="cart-toggler">
+                                        @if (Auth::check())
+                                        {{-- Lấy ra các sản phẩm trong giỏ hàng --}}
+                                           <?php $cart = DB::table('cart')->where('idUser',Auth::user()->id)->get(); ?>
+                                           {{-- Đếm số lượng sản phẩm trong giỏ hàng  --}}
+                                           @if (count($cart)>0)
+                                            <?php $total=0;
+                                                foreach ($cart as $item)
+                                                    $total += $item->quantity;
+                                            ?>
+                                                <a href="{{route('cart')}}" title="Bạn có {{$total}} sản phẩm" class="infor_count">
+                                                    <span class="cart-quantity count">{{$total}}</span><br>
+                                                    <span class="cart-icon">
+                                                        <i class="zmdi zmdi-shopping-cart-plus"></i>
+                                                    </span>
+                                                </a>
+                                            @else
+                                                <a href="{{route('cart')}}" title="" class="infor_count">
+                                                    <span class="cart-quantity count"></span><br>
+                                                    <span class="cart-icon ">
+                                                        <i class="zmdi zmdi-shopping-cart-plus"></i>
+                                                    </span>
+                                                </a>
+                                            @endif
+                                        @else
+                                            <a data-toggle="modal" data-target="#myModal" style="cursor: pointer">
+                                                <span class="cart-quantity"></span><br>
+                                                <span class="cart-icon">
+                                                    <i class="zmdi zmdi-shopping-cart-plus"></i>
+                                                </span>
+                                            </a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

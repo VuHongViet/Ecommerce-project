@@ -9,7 +9,7 @@
     <!-- Begin SEO -->
 
     <!-- Primary Meta Tags -->
-    <title>@yield('title')</title>
+    <title>Subas || @yield('title')</title>
 
 
     <!-- Favicon -->

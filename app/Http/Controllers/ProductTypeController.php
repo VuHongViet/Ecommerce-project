@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Category;
 use App\Model\ProductType;
 use Str;
+use File;
 use App\Http\Requests\StoreProductTypeRequest;
 use App\Http\Requests\UpdateProducttypeRequest;
 
@@ -119,6 +120,9 @@ class ProductTypeController extends Controller
     public function destroy($id)
     {
         $producttype = ProductType::find($id);
+        if(File::exists(public_path('img/upload/producttype/'.$producttype->image))){
+            File::delete(public_path('img/upload/producttype/'.$producttype->image));
+        }
         $producttype->delete();
         return response()->json(['success'=>'Xóa thành công']);
     }
