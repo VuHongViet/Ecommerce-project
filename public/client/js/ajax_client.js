@@ -210,6 +210,8 @@ $(document).ready(function(){
             $(this).find('.sub').css({"opacity":"1"});
         }
     })
+
+    //update cart
     $('.change-quantity').click(function(){
         let id = $(this).data('id');
         let value = $(this).siblings('.input_297o').val();
