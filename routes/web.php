@@ -37,6 +37,7 @@ Route::get('get/{product_detail}','PageController@productDetail')->name('product
 Route::group(['prefix' => 'ajax'], function () {
     Route::get('getproducttype','AjaxController@getproducttype');
     Route::get('getproduct','AjaxController@getproduct');
+    Route::post('updateCart/{id}','CartController@update');
     Route::resource('addcart','CartController');
 });
 

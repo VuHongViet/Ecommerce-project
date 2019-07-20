@@ -154,11 +154,12 @@ $(document).ready(function(){
             }
         })
     })
+    // lấy id sản phẩm về modal để xóa
     $('.remove-product').click(function(){
         let id = $(this).data('id');
         $('#id-remove').val(id);
     })
-    $('.text-center > tbody > tr').each(function(){
+    $('.text-center > li').each(function(){
         let quantity = $(this).find('.input_297o').val();
         if(quantity==1){
             $(this).find('.sub').prop({disabled:true});
@@ -217,15 +218,14 @@ $(document).ready(function(){
         let value = $(this).siblings('.input_297o').val();
         var $this = $(this);
         $.ajax({
-            url:'http://suba.com/ajax/addcart/'+id,
+            url:'http://localhost:8000/ajax/updateCart/'+id,
             data:{
                 idProduct:id,
                 value:value
             },
-            type:'put',
+            type:'post',
             dataType:'json',
             success:function(data){
-                console.log(data);
                 let i=data.cart.count;
                 let count =0;
                 for (let index = 0; index < i; index++) {
