@@ -1779,7 +1779,7 @@ table {width: 100%}
     z-index: 1;
     background: url(img/slider/slider-1/product_img.png) no-repeat;
     cursor: pointer;
-    background-size: contain;
+    background-size: cover;
 }
 .shadown_product a{
     position: absolute;
@@ -1799,7 +1799,7 @@ table {width: 100%}
     margin-right: 5px;
 }
 #sticky-header{
-    z-index: 10;
+    z-index: 9999;
 }
 .main-menu > li{
     cursor: pointer;

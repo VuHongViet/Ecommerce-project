@@ -35,7 +35,7 @@
                                     <div class="row">
                                         @foreach ($products as $product)
                                               <!-- product-item start -->
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <div class="col-md-4 col-sm-4 col-xs-12 xs-mobie-large">
                                                 <div class="product-item">
                                                     <div class="product-img">
                                                         <a href="{{route('product_detail',$product->slug)}}" title="{{$product->name}}">

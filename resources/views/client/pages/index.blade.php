@@ -12,76 +12,6 @@ Trang chủ
 <section id="page-content" class="page-wrapper">
 
     <!-- FEATURED PRODUCT SECTION START -->
-    <div class="featured-product-section mb-50">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title text-left mb-40">
-                        <h2 class="uppercase">Sản phẩm nổi bật</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="featured-product">
-                <div class="row active-featured-product slick-arrow-2">
-                    <!-- product-item start -->
-                    @foreach ($product_price as $products_price)
-                        <div class="col-xs-12">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <a href="{{route('product_detail',$products_price->slug)}}" title="{{$products_price->name}}">
-                                        <img src={{ asset('img/upload/product/'.$products_price->image) }} alt="{{$products_price->name}}" />
-                                    </a>
-                                    <div class="shadown_product">
-                                        <a href="{{route('product_detail',$products_price->slug)}}" title="{{$products_price->name}}"></a>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h6 class="product-title">
-                                        <a href="{{route('product_detail',$products_price->slug)}}">{{$products_price->name}}</a>
-                                    </h6>
-                                    <div class="pro-rating">
-                                        <a><i class="zmdi zmdi-star"></i></a>
-                                        <a><i class="zmdi zmdi-star"></i></a>
-                                        <a><i class="zmdi zmdi-star"></i></a>
-                                        <a><i class="zmdi zmdi-star-half"></i></a>
-                                        <a><i class="zmdi zmdi-star-outline"></i></a>
-                                    </div>
-                                    <span class="pro-price">{{$products_price->color}}</span>
-                                    @if ($products_price->promotional>0)
-                                        <h3 class="pro-price">{{number_format(($products_price->price*(100-$products_price->promotional))/100,0,',','.')}} VNĐ</h3>
-                                    @else
-                                        <h3 class="pro-price">{{number_format($products_price->price,0,',','.')}} VNĐ</h3>
-                                    @endif
-                                    <ul class="action-button">
-                                        <li>
-                                            <a data-toggle="modal" data-target="#productModal" title="Quickview" class="quickview" data-id="{{$products_price->id}}">
-                                                <i class="zmdi zmdi-zoom-in"></i>
-                                            </a>
-                                        </li>
-                                        @if (Auth::check())
-                                            <li>
-                                                <a class="addcart" style="cursor: pointer" title="Thêm vào giỏ" data-id="{{$products_price->id}}">
-                                                    <i class="zmdi zmdi-shopping-cart-plus" ></i>
-                                                </a>
-                                            </li>
-                                            <div class="action-click">
-                                                <span class="icon-check">Đã Thêm</span>
-                                            </div>
-                                        @else
-                                            <li>
-                                                <a data-toggle="modal" data-target="#myModal" style="cursor: pointer" title="Thêm vào giỏ"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                    <!-- product-item end -->
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- FEATURED PRODUCT SECTION END -->
 
     <!-- PRODUCT TAB SECTION START -->
@@ -112,7 +42,7 @@ Trang chủ
                         <div class="row">
                             <!-- product-item start -->
                             @foreach ($product_all as $product)
-                                <div class="col-md-3 col-sm-4 col-xs-12">
+                                <div class="col-md-3 col-sm-4 col-xs-12 xs-mobie-large">
                                     <div class="product-item">
                                         <div class="product-img">
                                             <a href="{{route('product_detail',$product->slug)}}" title="{{$product->name}}">
@@ -176,7 +106,7 @@ Trang chủ
                         <div class="row">
                             <!-- product-item start -->
                             @foreach ($product_times as $pt_times)
-                                <div class="col-md-3 col-sm-4 col-xs-12">
+                                <div class="col-md-3 col-sm-4 col-xs-12 xs-mobie-large">
                                     <div class="product-item">
                                         <div class="product-img">
                                             <a href="{{route('product_detail',$pt_times->slug)}}" title="{{$pt_times->name}}">
